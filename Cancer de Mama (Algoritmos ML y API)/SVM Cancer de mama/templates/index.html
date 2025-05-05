@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Predicción de Cáncer de Mama</title>
+</head>
+<body>
+    <h2>Ingrese los datos del paciente</h2>
+    <form action="/predict" method="post">
+        <label for="BIRADS">BIRADS:</label>
+        <input type="number" name="BIRADS" required><br><br>
+
+        <label for="Age">Edad:</label>
+        <input type="number" name="Age" required><br><br>
+
+        <label for="Shape">Forma (Shape):</label>
+        <input type="number" name="Shape" required><br><br>
+
+        <label for="Margin">Margen:</label>
+        <input type="number" name="Margin" required><br><br>
+
+        <label for="Density">Densidad:</label>
+        <input type="number" name="Density" required><br><br>
+
+        <input type="submit" value="Predecir">
+    </form>
+
+    {% if prediction_text %}
+        <h3>Resultado: {{ prediction_text }}</h3>
+    {% endif %}
+</body>
+</html>
