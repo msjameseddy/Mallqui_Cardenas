@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Predicción de Riesgo de ACV</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f0f4f8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background: #ffffff;
+            padding: 30px 40px;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            width: 100%;
+            max-width: 500px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: bold;
+            color: #555;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        input[type="submit"] {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        .result {
+            text-align: center;
+            margin-top: 20px;
+            background-color: #e6f7ff;
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid #b3e0ff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Ingrese los datos del paciente</h2>
+        <form action="/predict" method="post">
+            <label>Género:</label>
+            <select name="Genero" required>
+                <option value="">Seleccione</option>
+                <option value="1">Masculino</option>
+                <option value="2">Femenino</option>
+            </select>
+
+            <label>Edad:</label>
+            <input type="number" name="Edad" min="11" max="82" required>
+
+            <label>¿Tiene hipertensión?:</label>
+            <select name="hipertension" required>
+                <option value="">Seleccione</option>
+                <option value="1">Sí</option>
+                <option value="2">No</option>
+            </select>
+
+            <label>¿Tiene cardiopatía?:</label>
+            <select name="cardiopatía" required>
+                <option value="">Seleccione</option>
+                <option value="1">Sí</option>
+                <option value="2">No</option>
+            </select>
+
+            <label>¿Alguna vez casada?:</label>
+            <select name="Alguna_vez_casada" required>
+                <option value="">Seleccione</option>
+                <option value="1">Sí</option>
+                <option value="2">No</option>
+            </select>
+
+            <label>Tipo de trabajo:</label>
+            <select name="Tipo_de_trabajo" required>
+                <option value="">Seleccione</option>
+                <option value="1">Privado</option>
+                <option value="2">Cuenta propia</option>
+                <option value="3">Gobierno</option>
+                <option value="4">Niños</option>
+                <option value="5">Nunca trabajó</option>
+            </select>
+
+            <label>Tipo de residencia:</label>
+            <select name="Tipo_de_residencia" required>
+                <option value="">Seleccione</option>
+                <option value="1">Urbano</option>
+                <option value="2">Rural</option>
+            </select>
+
+            <label>Nivel promedio de glucosa (56 - 272 mg/dL):</label>
+            <input type="number" name="nivel_promedio_de_glucosa" min="56" max="272" step="0.1" required>
+
+            <label>IMC (10 - 60 kg/m²):</label>
+            <input type="number" name="IMC" min="10" max="60" step="0.1" required>
+
+            <label>Estado de fumador:</label>
+            <select name="Estado_de_fumador" required>
+                <option value="">Seleccione</option>
+                <option value="1">Nunca fumó</option>
+                <option value="2">Exfumador</option>
+                <option value="3">Actualmente fumador</option>
+            </select>
+
+            <input type="submit" value="Evaluar Riesgo">
+        </form>
+
+        {% if prediction_text %}
+        <div class="result">
+            <h3>Resultado: {{ prediction_text }}</h3>
+            <p>Probabilidad: {{ prob }}%</p>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
